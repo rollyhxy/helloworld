@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>p标签里面不能放块级元素</title>
+	<style>
+		.parent {
+			width: 200px;
+			height: 200px;
+			border:1px solid red;
+		}
+		.child {
+			width: 100px;
+			height: 100px;
+			border:1px solid pink;
+		}
+	</style>
+</head>
+<body>
+	<xmp>
+	1.DTD(关于标记符的语法规则)中规定了块级元素是不能放在<p>里面的，再加上一些浏览器纵容这样的写法:
+	当一个<p>签还没结束时，遇到下一个块元素就会把自己结束掉.
+	
+	2.里面只能放内联元素的块级元素：<h1...h6>,<caption>,<p>,<hr>,<dt>。
+	</xmp>
+
+	<p><a href="http://www.chhua.com/web-note3230">参考此篇文章</a></p>
+
+	<xmp>
+	<p class="parent">父元素
+		<div class="child">子元素</div>
+	</p>
+	浏览器会把上面的代码解读成如下效果
+	<p class="parent">父元素</p>
+	<div class="child">子元素</div>
+	</xmp>
+</body>
+</html>
