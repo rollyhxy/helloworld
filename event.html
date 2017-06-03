@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件的三个阶段: 捕获，目标，冒泡阶段，低版本IE不支持捕获阶段 </title>
+	<script src="./jquery.js"></script>
+</head>
+<body>
+	
+	<button id="btn">click me</button>
+
+	<ul id="J_test">
+		<li>01</li>
+		<li>02</li>
+		<li>03</li>
+		<li>04</li>
+		<li>05</li>
+	</ul>
+	<ul id="JQ_test">
+		<li>01</li>
+		<li>02</li>
+		<li>03</li>
+		<li>04</li>
+		<li>05</li>
+	</ul>
+	<script>
+		var btn = document.getElementById("btn");
+
+		btn.onclick = function(e){
+		  	alert("ok");
+		  	
+		};
+		btn["onmousemove"] = function(e){
+			  	alert("ok1");}
+
+		var J_test = document.getElementById("J_test");
+
+		J_test.addEventListener("click",function(e){
+		  	console.log(event.target);
+		}, false);
+
+		var JQ_test = $('#JQ_test');
+		JQ_test.on('click','li',function(){
+			console.log(this)
+		})
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
