@@ -3,47 +3,108 @@
 <head>
 	<meta charset="UTF-8">
 	<title>事件的三个阶段: 捕获，目标，冒泡阶段，低版本IE不支持捕获阶段 </title>
+	<style>
+		.parent {
+			text-indent: 10px;
+			width: 300px;
+			height: 300px;
+			line-height: 50px;
+			border:1px solid red;
+		}
+		.child {
+			width: 200px;
+			height: 200px;
+			border:1px solid blue;
+			margin: 0 auto;
+		}
+	</style>
 	<script src="./jquery.js"></script>
 </head>
 <body>
+	<a href="http://www.cnblogs.com/Moomoo/p/5359586.html">Javascript事件阶段</a>
+
 	
-	<button id="btn">click me</button>
 
-	<ul id="J_test">
-		<li>01</li>
-		<li>02</li>
-		<li>03</li>
-		<li>04</li>
-		<li>05</li>
-	</ul>
-	<ul id="JQ_test">
-		<li>01</li>
-		<li>02</li>
-		<li>03</li>
-		<li>04</li>
-		<li>05</li>
-	</ul>
+
+	<h1>捕获的例子</h1>
+	<div class="capture">
+		<div class="parent">
+			parent
+			<div class="child">
+				child
+			</div>
+		</div>
+	</div>
+
+
+	<h1>冒泡的例子</h1>
+	<div class="bubble">
+		<div class="parent">
+			parent
+			<div class="child">
+				child
+			</div>
+		</div>
+	</div>
+
+	<h2>
+		 从打印的结果看 target是最里层的元素 currentTarget是当前事件流所到达的元素, 在目标元素上绑定的事件是按绑定顺序执行的, 和事件流无关
+	</h2>
+
+	<h1>阻止默认行为的例子</h1>
+	<a href="http://www.baidu.com" id="demo">baidu</a>
+	<h2>点击a链接的默认行为是页面跳转, 点击form的提交按钮的默认行为是提交表单等</h2>
 	<script>
-		var btn = document.getElementById("btn");
+		;( function () {
+			var parent = document.querySelector('.capture .parent');
+			var child = document.querySelector('.capture .child');
 
-		btn.onclick = function(e){
-		  	alert("ok");
-		  	
-		};
-		btn["onmousemove"] = function(e){
-			  	alert("ok1");}
+			parent.addEventListener('click', (e) => {
+				console.log('bubble: click parent')
+				console.log('当前元素是目标元素: ',  e.target === e.currentTarget);
+			}, false);
+			parent.addEventListener('click', (e) => {
+				// e.stopPropagation();
+				console.log(e.target)
+				console.log(e.currentTarget)
+				console.log('capture: click parent')
+				console.log('当前元素是目标元素: ',  e.target === e.currentTarget);
+			}, true);
+			child.addEventListener('click', (e) => {
+				console.log('bubble: click child')
+				console.log('当前元素是目标元素: ',  e.target === e.currentTarget);
+			}, false);
+			child.addEventListener('click', (e) => {
+				console.log(e.target);
+				console.log(e.currentTarget);
+				console.log('capture: click child')
+				console.log('当前元素是目标元素: ',  e.target === e.currentTarget);
+			}, true);
+		})();
+		
+		;( function () {
+			var parent = document.querySelector('.bubble .parent');
+			var child = document.querySelector('.bubble .child');
 
-		var J_test = document.getElementById("J_test");
+			parent.addEventListener('click', (e) => {
+				console.log('click parent')
+				console.log(e.target)
+				console.log(e.currentTarget)
+			}, false);
+			child.addEventListener('click', (e) => {
+				console.log('click child')
+				console.log(e.target)
+				console.log(e.currentTarget)
+			}, false);
+		})();
 
-		J_test.addEventListener("click",function(e){
-		  	console.log(event.target);
-		}, false);
 
-		var JQ_test = $('#JQ_test');
-		JQ_test.on('click','li',function(){
-			console.log(this)
-		})
-
+		;( () => {
+			const demo = document.getElementById('demo');
+			demo.addEventListener('click', (e) => {
+				// e.preventDefault();
+			}, false);
+		})();
 	</script>
 </body>
 </html>
