@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bindtringger</title>
+</head>
+<body>
+	<div>用bind绑定事件，用trigger触发事件</div>
+
+	<input type="text" id='inp'>
+	
+	<script>
+
+
+	//工具函数
+	var event = {
+		cb: {},
+		bind: function (type,cb) {
+			event.cb[type] =event.cb[type] || [];
+			event.cb[type].push(cb);
+		},
+		trigger: function (type) {
+			var arr = Array.prototype.slice.call(arguments,1);
+
+			this.cb[type].forEach(function (con) {
+				con.apply(this,arr);
+			});
+		},
+		off: function (type,cb) {
+			var cbs = this.cb[type];
+			var index = cbs.indexOf(cb);
+			if(index !== -1){
+				cbs.splice(index,1)
+			}
+		}
+	}
+
+
+
+
+	//执行
+	var vary = function() {
+		console.log(1111, arguments);
+	};
+	event.bind('ele',  vary );
+	event.bind('ele',  function() {
+		console.log(2222);
+	});
+
+	event.bind('eley',  function() {
+		console.log(33333, arguments)
+	});
+
+	event.trigger('ele', '123', '456');
+
+	
+
+	setTimeout( () => {
+		event.off('ele', vary);
+		event.trigger('ele', '123', '456');
+	}, 2000);
+
+	</script>
+
+</body>
+</html>
