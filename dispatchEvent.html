@@ -1,0 +1,32 @@
+<!DOCTYPE html>  
+<html>  
+<head lang="en">  
+    <meta charset="UTF-8">  
+    <title>dispatchEvent举例</title>  
+</head>  
+<body>  
+  
+</body>  
+<script type="text/javascript">  
+    //document上绑定自定义事件onzidingyi  
+    document.addEventListener('onzidingyi', function (event) {  
+        alert(event.name+'，'+event.message);  
+    }, false);  
+  
+    //创建event的对象实例。  
+    //document.createEvent('some'),some可以是"UIEvents", "MouseEvents", "MutationEvents", and "HTMLEvents"
+    var event = document.createEvent('HTMLEvents'); 
+
+    // 3个参数：事件类型，是否冒泡，是否阻止浏览器的默认行为。event.initEvent(type, bubbles, cancelable);  
+    event.initEvent("onzidingyi", true, true);  
+
+
+    /*属性，随便自己定义*/  
+    event.name = 'hello,我是胡';  
+    event.message = '中国人';  
+  
+    //触发自定义事件oneating  
+    document.dispatchEvent(event); 
+
+</script>  
+</html>
