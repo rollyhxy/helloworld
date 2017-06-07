@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cookie</title>
+	<style>
+		
+	</style>
+	<script src="./jquery.js"></script>
+</head>
+	<body>
+	<div><a href="http://www.cnblogs.com/wanglog/p/5484072.html">启动远程操控服务器步骤</a></div>	
+	<p>SSH:Secure Shell,是一种网络安全协议，主要用于登录远程计算机的加密过程。
+	登录方式主要有两种：
+	<span>1、基于用户密码的登录方式</span>
+	<span>2、基于密钥的登录方式</span>
+	</p>
+	<p>cookie可以跨越一个域名下的多个网页，但不能跨越多个域名使用</p>
+	<h1>设置cookie </h1>
+	<p>在cookie 的名或值中不能使用分号（;）、逗号（,）、等号（=）以及空格,要保存的值是不确定的,用escape()函数进行编码，它能将一些特殊符号使用十六进制表示.使用escape()编码后，在取出值以后需要使用unescape()进行解码才能得到原来的cookie值</p>
+	<h1>获取cookie的值</h1>
+	<p>cookie的值可以由document.cookie直接获得：  var strCookie=document.cookie; </p>
+	<div>
+		Cookie的处理分为：
+	</div>
+	<p>
+		服务器像客户端发送cookie
+		浏览器将cookie保存
+		之后每次http请求浏览器都会将cookie发送给服务器端
+	</p>
+
+	<script>
+		console.log(document.cookie);
+		setTimeout(function(){
+			console.log(document.cookie);
+		},5000);
+		setTimeout(function(){
+			console.log(document.cookie)
+		},10000)
+	</script>
+	<script language="JavaScript" type="text/javascript"> 
+
+	    var date=new Date();     //获取当前时间 
+	    var expiresDays = 10; 
+
+	    date.setTime( date.getTime() + expiresDays*24*3600*1000 );    //将date设置为当前时间后的10天
+
+	    //将userId和userName两个cookie设置为10天后过期 
+
+	    document.cookie = "userId=828;userName=hulk;expires="+date.toGMTString(); 
+
+	</script>
+	
+</body>
+</html>
