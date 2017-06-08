@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie--addCookie</title>
+</head>
+
+<body>
+    <div>port对cookie没有影响，前提是，协议与host相同</div>    
+    <div>anywhere起静态服务</div>
+<script type="text/javascript">
+    function addCookie(name, value, second) {
+
+        var cookieString = name + "=" + escape(value);
+
+        if (second > 0) { //判断是否设置过期时间 
+            var date = new Date();
+            date.setTime(date.getTime() + second * 1000);
+            cookieString = cookieString + "; expires=" + date.toGMTString(); 
+	   } 
+
+	   document.cookie = cookieString; 
+
+	}
+
+    console.log(document.cookie)
+    if (document.cookie) {
+
+    } else {
+        addCookie('hxy', 'lmj', 10);
+        addCookie('hxy1', 'www');
+         //没有第三个参数，表示过期时间是session结果，整个浏览器推出。
+        console.log(document.cookie);
+        setTimeout(function(){
+            console.log(document.cookie);
+        },6000)
+        //hxy1=www; hxy=111222
+    }
+
+//比较上下
+//此例说明document.cookie多次设置后，并不会被覆盖掉
+    var o = {};
+    var bValue = ""; Object.defineProperty(o, "b", {
+        get : function(){
+            return bValue;
+        },
+        set : function(newValue){
+            bValue += newValue;
+        },
+        enumerable : true,
+        configurable : true
+        });
+    o.b ="123";
+    o.b ="456";
+    bValue;
+    //'123456'
+
+</script>
+</body>
+
+</html>
