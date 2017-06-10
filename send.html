@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body,div{
+			margin: 0;
+			padding: 0;
+		}
+		.center {
+			width: 440px;
+			height: 400px;
+			border:1px solid #ccc;
+			margin-left: 450px;
+			margin-top: 180px;
+		}
+		.first {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		.int {
+			width: 300px;
+			margin-left: 15px;
+
+		}
+		.btn {
+			width: 50px;
+			padding: 5px;
+			margin-left: 30px;
+		}
+		
+	</style>
+	<script src="./jquery.js"></script>
+</head>
+<body>
+	<div class="center">
+		<div class="first">
+			<input type="text" class="int" placeholder="输入内容回车发送">
+			<button class="btn">发射</button>
+		</div>
+	</div>
+	<script>
+		var arr = [];
+		function isInArray (arr,str) {
+			for(var i=0;i<arr.length;i++){
+				if(str == arr[i]){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		var btn = document.getElementsByClassName('btn');
+		
+		
+		$('.btn').click(function () {
+			var value = $('input').val().trim();
+			if(value.length){
+				if (isInArray(arr,value)) {
+
+				} else {
+					arr.push(value);
+					var content = `<div class="content">${value}</div>`;
+
+					var con = $('.content:first');
+					if (con.length) {
+						con.before(content);
+					} else {
+						$('.first').append(content);
+					}
+					
+				}	
+			}
+		})
+	
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
