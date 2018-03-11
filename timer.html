@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计时器</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		
+	</style>
+</head>
+<script src="./jquery.js"></script>
+<body>
+	<h1>setTimeout</h1>
+	<span id="content">时间</span>
+	<button id="start">开始</button>
+	<script>
+		var x = 00;
+		var y = 00;
+		var z = 00;
+		var starts = document.getElementById('start');
+		function bezro (num) {
+			return num < 10 ? '0' + num : '' + num;
+		}
+		function start () {
+			if (x<= 59 && x>=0 && y<=59 && y>=0 && z<=23 && z>=0) {
+				var newx = bezro(x);
+				var newy = bezro(y);
+				var newz = bezro(z);
+
+				let content = document.getElementById('content');
+				content.innerHTML = newz + ":" + newy + ":" + newx;
+				//console.log(x);
+				x = x + 1;
+			} else if (y<=59 && y>=0 && z<=59 && z>=0) {
+				y = y + 1;
+				x = 0;
+			} else if (z<=23 && z>=0){
+				z = z + 1;
+				x = 0;
+				y = 0;
+			}
+			setTimeout ("start()",1000);  
+		}
+		
+		starts.addEventListener('click',(e)=>{
+			start()
+		},false)
+	</script>
+</body>
+</html> 
